@@ -1,0 +1,7 @@
+.node_modules
+.dockerignore
+.docker-compose.yml
+Dockerfile
+mongo_data
+mysql_data
+postgres_data

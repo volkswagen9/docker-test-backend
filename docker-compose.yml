@@ -1,0 +1,48 @@
+version: '3'
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/mydb
+      - POSTGRES_URI=postgresql://postgrese:password@postgres:5432/mydb
+      - MYSQL_HOST=mysql
+      - MYSQL_USER=mysql
+      - MYSQL_PASSWORD=password
+      - MYSQL_DATABASE=mydb
+      - API_KEY=2f1f337d-5df7-4948-8d01-363b4e36aa97
+    depends_on:
+      - mongo
+      - postgres
+      - mysql
+
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongo_data:/data/db
+
+  postgres:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgrese
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=mydb
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+
+  mysql:
+   image: mysql
+   ports:
+     - "3306:3306"
+   environment:
+     - MYSQL_ROOT_PASSWORD=password
+     - MYSQL_USER=mysql
+     - MYSQL_PASSWORD=password
+     - MYSQL_DATABASE=mydb
+   volumes:
+     - ./mysql_data:/var/lib/mysql
